@@ -1,0 +1,23 @@
+{
+  "include": [
+      "src/**/*",
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts",
+      "src/scripts"
+  ],
+ "compilerOptions": {
+      "lib": ["es6","dom"],
+     // "types": ["node"],
+      "target": "es6",
+      "pretty": true,
+      "module": "commonjs",
+      "outDir": "./dist",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "sourceMap": true,
+ }
+}
