@@ -72,7 +72,7 @@ export class User extends Model<User> {
 
     @AllowNull(false)
     @Column
-    UserName: string
+    UserName: string;
 
     @Column({type:DataType.GEOMETRY("POINT",4326)})
     Location? : geoJSON;
@@ -86,14 +86,14 @@ export class User extends Model<User> {
     Password : string;
 
     @Column({type:DataType.ARRAY(DataType.INTEGER)})
-    VersionsPlayed:Array<XWingVersions>
+    VersionsPlayed:Array<XWingVersions>;
 
     @Column({type:DataType.ARRAY(DataType.STRING)})
-    ForcesPlayed: Array<XWingForces>
+    ForcesPlayed: Array<XWingForces>;
 
     @Default(true)
     @Column
-    OkWithProxies? : boolean
+    OkWithProxies? : boolean;
 
     @Length({min:4,max:500})
     @Column
@@ -108,7 +108,7 @@ export class User extends Model<User> {
 
     @CreatedAt
     @Column
-    CreatedAt? : Date
+    CreatedAt? : Date;
 
     @UpdatedAt
     @Column
