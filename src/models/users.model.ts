@@ -20,19 +20,19 @@ import { Table,
      IsEmail,
      BeforeCreate} from 'sequelize-typescript';
 import {DataType} from 'sequelize-typescript';
-import { Col } from 'sequelize/types/lib/utils';
-import { isDate } from 'util';
 import { Sequelize, GEOMETRY } from 'sequelize/types';
-import { runInThisContext } from 'vm';
+import { modelInterface, geoJSON } from '../../types/types'
 const uuidv1 = require('uuid/v1');
 var bcrypt = require('bcrypt');
 
-export interface IXWingUser {
-    
-}
+
+type XWingVersions = 1 | 2;
+type XWingForces = "Empire" | "Rebellion" | "Scum and Villany" | "First Order" | "The Resistance" | "Republic" | "Seperatists";
+
+export type IXWingUser = modelInterface<User>;
 
 @Table
-export class User extends Model<User> implements IXWingUser {
+export class User extends Model<User> {
 
     static formatDate(date) {
         var d = new Date(date),
@@ -58,14 +58,24 @@ export class User extends Model<User> implements IXWingUser {
        return bcrypt.compareSync(argPassword,instance.Password);
     }
 
+    @BeforeCreate
+    static encryptLocation(instance: User) {
+       const salt = bcrypt.genSaltSync(12)
+       instance.Password = bcrypt.hashSync(instance.Password,salt)
+    }
+
     @Default(uuidv1)
     @AllowNull(false)
     @Unique
     @Column({ type : DataType.UUID, primaryKey: true, unique: true  })
-    UserID: string;
+    UserID?: string;
 
-    @Column({type:DataType.GEOMETRY})
-    Location : object;
+    @AllowNull(false)
+    @Column
+    UserName: string
+
+    @Column({type:DataType.GEOMETRY("POINT",4326)})
+    Location? : geoJSON;
 
     @IsEmail
     @Column
@@ -76,17 +86,22 @@ export class User extends Model<User> implements IXWingUser {
     Password : string;
 
     @Column({type:DataType.ARRAY(DataType.INTEGER)})
-    VersionsPlayed?:Array<number>
+    VersionsPlayed:Array<XWingVersions>
 
     @Column({type:DataType.ARRAY(DataType.STRING)})
-    ForcesPlayed?: Array<string>
+    ForcesPlayed: Array<XWingForces>
+
+    @Default(true)
+    @Column
+    OkWithProxies? : boolean
 
     @Length({min:4,max:500})
     @Column
     Description?:string;
 
+    @Default(0)
     @Column
-    Rating?:string;
+    Rating?:number;
 
     @Column({type:DataType.BLOB})
     ProfilePicture?: string;
