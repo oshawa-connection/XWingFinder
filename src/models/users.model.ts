@@ -59,9 +59,21 @@ export class User extends Model<User> {
     }
 
     @BeforeCreate
-    static encryptLocation(instance: User) {
-       const salt = bcrypt.genSaltSync(12)
-       instance.Password = bcrypt.hashSync(instance.Password,salt)
+    static scrambleLocation(instance: User) {
+        if (instance.Location.coordinates.length !== 2 || instance.Location.type !== "point") throw Error("Coordinates don't look to be points.")
+        
+        let r = Math.floor(Math.random() * 50 + 50) / 111300;
+        let u = Math.random();
+        let w = r * Math.sqrt(u);
+        let t = 2 * Math.PI * Math.random();
+        let x = w * Math.cos(t);
+        let y = w * Math.sin(t);
+        
+        x = x / Math.cos(instance.Location.coordinates[1]);
+    
+        instance.Location.coordinates[0] = instance.Location.coordinates[0] + x;
+        instance.Location.coordinates[1] = instance.Location.coordinates[1] + y;
+        //console.log(instance.Location.coordinates)
     }
 
     @Default(uuidv1)

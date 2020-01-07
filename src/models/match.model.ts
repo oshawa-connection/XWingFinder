@@ -37,43 +37,43 @@ export interface IMatch {
 @Table
 export class Match extends Model<Match> implements IMatch {
 
-    @Default(uuidv1)
-    @AllowNull(false)
-    @Unique
-    @Column({ type : DataType.UUID, primaryKey: true, unique: true  })
-    MatchID: string;
+    // @Default(uuidv1)
+    // @AllowNull(false)
+    // @Unique
+    // @Column({ type : DataType.UUID, primaryKey: true, unique: true  })
+    // MatchID: string;
 
-    @Column({type:DataType.GEOMETRY})
-    Location : object;
+    // @Column({type:DataType.GEOMETRY})
+    // Location : object;
 
-    @BelongsToMany(()=> User, () => )
-    Employees? :Array<CarnellEmployee>;
+    // @BelongsToMany(()=> User, () => )
+    // Employees? :Array<CarnellEmployee>;
     
-    @Column
-    Password : string;
+    // @Column
+    // Password : string;
 
-    @Column
-    VersionsPlayed?:Array<number>
+    // @Column
+    // VersionsPlayed?:Array<number>
 
-    @Column
-    ForcesPlayed?: Array<string>
+    // @Column
+    // ForcesPlayed?: Array<string>
 
-    @Length({min:4,max:500})
-    @Column
-    Description?:string;
+    // @Length({min:4,max:500})
+    // @Column
+    // Description?:string;
 
-    @Column
-    Rating?:string;
+    // @Column
+    // Rating?:string;
 
-    @Column({type:DataType.BLOB})
-    ProfilePicture?: string;
+    // @Column({type:DataType.BLOB})
+    // ProfilePicture?: string;
 
-    @CreatedAt
-    @Column
-    CreatedAt? : Date
+    // @CreatedAt
+    // @Column
+    // CreatedAt? : Date
 
-    @UpdatedAt
-    @Column
-    UpdatedAt?: Date;
+    // @UpdatedAt
+    // @Column
+    // UpdatedAt?: Date;
 
 }

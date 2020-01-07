@@ -9,7 +9,7 @@ interface crs {
 }
 
 export interface geoJSON {
-    coordinates : Array<number>,
-    "type" : string,
+    coordinates : Array<any>,
+    "type" : "point"| "polygon",
     crs: object
 }
