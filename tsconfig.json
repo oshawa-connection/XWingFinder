@@ -3,6 +3,8 @@
       "src/**/*",
   ],
   "exclude": [
+      "types/",
+      "views/",
       "node_modules",
       "**/*.spec.ts",
       "src/scripts"
@@ -10,6 +12,7 @@
  "compilerOptions": {
       "lib": ["es6","dom"],
      // "types": ["node"],
+     "esModuleInterop": true,
       "target": "es6",
       "pretty": true,
       "module": "commonjs",
