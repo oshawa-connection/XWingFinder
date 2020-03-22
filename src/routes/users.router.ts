@@ -28,8 +28,11 @@ usersRouter.get('/geoJson', (req:Request, res:Response) => {
     
     ) as t(userName, forcesPlayed, location);
   ` ).then(data => {
+      console.log("raw result")
       console.log(data)
-      res.send(data)
+      console.log("filtered result")
+      console.log(data[0][0]["json_build_object"])
+      res.json(data[0][0]["json_build_object"]).send()
   })
 })
 
