@@ -25,7 +25,7 @@ import { Col } from 'sequelize/types/lib/utils';
 import { isDate } from 'util';
 import { Sequelize, GEOMETRY, DataTypes } from 'sequelize/types';
 import { runInThisContext } from 'vm';
-import { User } from './users.model';
+import { xWingUser } from './xWingUser.model';
 const uuidv1 = require('uuid/v1');
 var bcrypt = require('bcrypt');
 
@@ -35,7 +35,7 @@ export interface IMatch {
 
 
 @Table
-export class Match extends Model<Match> implements IMatch {
+export class chatMatch extends Model<chatMatch> implements IMatch {
 
     // @Default(uuidv1)
     // @AllowNull(false)
@@ -46,7 +46,7 @@ export class Match extends Model<Match> implements IMatch {
     // @Column({type:DataType.GEOMETRY})
     // Location : object;
 
-    // @BelongsToMany(()=> User, () => )
+    // @BelongsToMany(()=> xWingUser, () => )
     // Employees? :Array<CarnellEmployee>;
     
     // @Column

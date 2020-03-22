@@ -29,10 +29,10 @@ var bcrypt = require('bcrypt');
 type XWingVersions = 1 | 2;
 type XWingForces = "Empire" | "Rebellion" | "Scum and Villany" | "First Order" | "The Resistance" | "Republic" | "Seperatists";
 
-export type IXWingUser = modelInterface<User>;
+export type IXWingUser = modelInterface<xWingUser>;
 
 @Table
-export class User extends Model<User> {
+export class xWingUser extends Model<xWingUser> {
 
     static formatDate(date) {
         var d = new Date(date),
@@ -49,18 +49,18 @@ export class User extends Model<User> {
     }
 
     @BeforeCreate
-    static encryptPassword(instance: User) {
+    static encryptPassword(instance: xWingUser) {
        const salt = bcrypt.genSaltSync(12)
-       instance.Password = bcrypt.hashSync(instance.Password,salt)
+       instance.password = bcrypt.hashSync(instance.password,salt)
     }
  
-    static validPassword(argPassword : string, instance: User) {
-       return bcrypt.compareSync(argPassword,instance.Password);
+    static validPassword(argPassword : string, instance: xWingUser) {
+       return bcrypt.compareSync(argPassword,instance.password);
     }
 
     @BeforeCreate
-    static scrambleLocation(instance: User) {
-        if (instance.Location.coordinates.length !== 2 || instance.Location.type !== "point") throw Error("Coordinates don't look to be points.")
+    static scrambleLocation(instance: xWingUser) {
+        if (instance.location.coordinates.length !== 2 || instance.location.type !== "point") throw Error("Coordinates don't look to be points.")
         
         let r = Math.floor(Math.random() * 50 + 50) / 111300; //convert to degrees
         let u = Math.random();
@@ -69,11 +69,11 @@ export class User extends Model<User> {
         let x = w * Math.cos(t);
         let y = w * Math.sin(t);
         
-        x = x / Math.cos(instance.Location.coordinates[1]); //account for error of curved earth
+        x = x / Math.cos(instance.location.coordinates[1]); //account for error of curved earth
     
-        instance.Location.coordinates[0] = instance.Location.coordinates[0] + x;
-        instance.Location.coordinates[1] = instance.Location.coordinates[1] + y;
-        //console.log(instance.Location.coordinates)
+        instance.location.coordinates[0] = instance.location.coordinates[0] + x;
+        instance.location.coordinates[1] = instance.location.coordinates[1] + y;
+        //console.log(instance.location.coordinates)
     }
 
     
@@ -82,50 +82,50 @@ export class User extends Model<User> {
     @AllowNull(false)
     @Unique
     @Column({ type : DataType.UUID, primaryKey: true, unique: true  })
-    UserID?: string;
+    userID?: string;
 
     @AllowNull(false)
     @Column
-    UserName: string;
+    userName: string;
 
     @Column({type:DataType.GEOMETRY("POINT",4326)})
-    Location? : geoJSON;
+    location? : geoJSON;
 
     @IsEmail
     @Column
-    Email : string;
+    email : string;
     
     @Length({min:5,max:50})
     @Column({ allowNull:false })
-    Password : string;
+    password : string;
 
     @Column({type:DataType.ARRAY(DataType.INTEGER)})
-    VersionsPlayed:Array<XWingVersions>;
+    versionsPlayed:Array<XWingVersions>;
 
     @Column({type:DataType.ARRAY(DataType.STRING)})
-    ForcesPlayed: Array<XWingForces>;
+    forcesPlayed: Array<XWingForces>;
 
     @Default(true)
     @Column
-    OkWithProxies? : boolean;
+    okWithProxies? : boolean;
 
     @Length({min:4,max:500})
     @Column
-    Description?:string;
+    description?:string;
 
     @Default(0)
     @Column
-    Rating?:number;
+    rating?:number;
 
     @Column({type:DataType.BLOB})
-    ProfilePicture?: string;
+    profilePicture?: string;
 
     @CreatedAt
     @Column
-    CreatedAt? : Date;
+    createdAt? : Date;
 
     @UpdatedAt
     @Column
-    UpdatedAt?: Date;
+    updatedAt?: Date;
 
 }

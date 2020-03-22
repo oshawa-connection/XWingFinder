@@ -1,6 +1,10 @@
 import express from "express"
-import request from "request";
 import { Request, Response, NextFunction } from "express";
+import { sequelize } from "./database";
+import { usersRouter } from "../routes/users.router"
+
+
+sequelize;
 
 const fs = require('fs');
 const spawn = require("child_process").spawn;
@@ -31,6 +35,8 @@ server.use(function(req, res, next) {
 server.get("/",async (req:Request,res:Response) => {
   res.send("hello")
 })
+
+server.use("/users", usersRouter)
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);

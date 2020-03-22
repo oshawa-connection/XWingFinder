@@ -1,14 +1,20 @@
 var fs = require('fs');
 var path = require('path');
 import { Sequelize } from 'sequelize-typescript';
-import { User } from '../models/users.model';
+import { xWingUser } from '../models/xWingUser.model';
 
 var basename = path.basename(__filename);
 const environment : string = process.env.testOrProdEnv || "development";
-console.log(environment);
-var config = require(__dirname + '/../../database.config.json')[environment];
 
-console.log(config);
+
+try {
+  var config = require(__dirname + '/../../database.config.json')[environment];
+} catch (error) {
+  var config = require(__dirname + '/../../../database.config.json')[environment];
+}
+
+
+
 var db = <any>{};
 
 export const sequelize = new Sequelize({
@@ -34,4 +40,4 @@ sequelize.authenticate().then(() => {
 
 // sequelize.addModels([__dirname + '/**/*.model.ts']);
 
-sequelize.addModels([User]);
+sequelize.addModels([xWingUser]);
