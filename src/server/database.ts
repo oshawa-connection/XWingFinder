@@ -4,18 +4,40 @@ import { Sequelize } from 'sequelize-typescript';
 import { xWingUser } from '../models/xWingUser.model';
 
 var basename = path.basename(__filename);
-const environment : string = process.env.testOrProdEnv || "development";
+const environment : string = process.env.testOrProdEnv || "testing";
+
+console.log(`starting database in ${environment} environment`)
 
 
 try {
   var config = require(__dirname + '/../../database.config.json')[environment];
 } catch (error) {
-  var config = require(__dirname + '/../../../database.config.json')[environment];
+    try {
+      var config = require(__dirname + '/../../../database.config.json')[environment];
+    }
+    catch(err) {
+      throw "database config not provided!"
+    }
 }
 
 
 
 var db = <any>{};
+
+let loggingOption;
+switch (config.logging) {
+  case false:
+    loggingOption = false;
+    break;
+  case true:
+    loggingOption = console.log;
+    break;
+  default:
+    loggingOption = console.log;
+    break;
+};
+
+console.log(loggingOption)
 
 export const sequelize = new Sequelize({
   database: config.database,
@@ -24,6 +46,7 @@ export const sequelize = new Sequelize({
   password: config.password,
   host: config.host,
   port: config.port,
+  logging:loggingOption,
   define: {
     schema: config.schema,
     freezeTableName: true,

@@ -10,7 +10,7 @@ const fs = require('fs');
 const spawn = require("child_process").spawn;
 const bodyParser = require('body-parser');
 const port = 3002;
-const server = express();
+export const server = express();
 const hostname = "localhost"
 console.log(__dirname +"/../views/")
 server.use("/views",express.static(__dirname +"/../views/"));
@@ -41,3 +41,4 @@ server.use("/users", usersRouter)
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
+
