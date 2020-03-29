@@ -3,9 +3,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { server } from "../src/server/index";
-import { sequelize } from "../src/server/database";
+import { sequelizeFactory } from "../src/server/database";
 import { IXWingUser, xWingUser } from '../src/models/xWingUser.model'
-process.env['testOrProdEnv'] = 'testing';
+
+const sequelize = sequelizeFactory()
 
 // Configure chai
 chai.use(chaiHttp);

@@ -1,10 +1,10 @@
 import express from "express"
 import { Request, Response, NextFunction } from "express";
-import { sequelize } from "./database";
+import { sequelizeFactory } from "./database";
 import { usersRouter } from "../routes/users.router"
 
 
-sequelize;
+export const sequelize = sequelizeFactory("development");
 
 const fs = require('fs');
 const spawn = require("child_process").spawn;

@@ -1,19 +1,16 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { server } from "../src/server/index";
-import { sequelize } from "../src/server/database";
+import { sequelizeFactory } from "../src/server/database";
 import { IXWingUser, xWingUser } from '../src/models/xWingUser.model'
-process.env['testOrProdEnv'] = 'testing';
+process.env['testOn'] = 'testing';
 
+const sequelize = sequelizeFactory()
 
 chai.should();
 
 before(async function() {
-    
-    sequelize
-    
-    //await db.clear();
-    //await db.save([tobi, loki, jane]);
+
 });
 
 beforeEach(async function() {
@@ -21,7 +18,7 @@ beforeEach(async function() {
 })
 
 describe("User model",async function() {
-    it("should allow new user to be created", async function(done) {
+    it("should allow new user to be created", async function() {
         
         let newUser : IXWingUser
         newUser = {
@@ -36,9 +33,17 @@ describe("User model",async function() {
         }
         
         let dbResponse = await xWingUser.create(newUser);
-        console.log(dbResponse);
-        done()
-    })
+        //console.log(typeof(dbResponse))
+        //dbResponse.should.be.an("object","the response from the db is not an object");
+        var x = 1
+        x.should.be.equal(1)
+        
+    });
+
+    // it("should allow selection", async function(done) {
+        
+    //     done()
+    // })
 })
 
 
@@ -48,6 +53,6 @@ after(async function() {
 
 
 afterEach(async function() {
-    await sequelize.drop()
+    await sequelize.sync({force:true});
 })
 

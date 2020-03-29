@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { xWingUser } from '../models/xWingUser.model';
 import { Request, Response, NextFunction } from "express";
-import { sequelize } from '../server/database';
+import { sequelize } from '../server/index';
 
 export const usersRouter = Router();
 
