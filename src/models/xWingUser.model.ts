@@ -34,7 +34,7 @@ export type IXWingUser = modelInterface<xWingUser>;
 @Table
 export class xWingUser extends Model<xWingUser> {
 
-    static formatDate(date) {
+    static formatDate(date : Date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
@@ -76,7 +76,7 @@ export class xWingUser extends Model<xWingUser> {
         //console.log(instance.location.coordinates)
     }
 
-    
+     
 
     @Default(uuidv1)
     @AllowNull(false)
@@ -109,7 +109,7 @@ export class xWingUser extends Model<xWingUser> {
     @Column
     okWithProxies? : boolean;
 
-    @Length({min:4,max:500})
+    @Length({min:4,max:255})
     @Column
     description?:string;
 
