@@ -34,7 +34,7 @@ describe("User model",async function() {
         
         let dbResponse = await xWingUser.create(newUser);
         //console.log(typeof(dbResponse))
-        //dbResponse.should.be.an("object","the response from the db is not an object");
+        dbResponse.should.be.an("object","the response from the db is not an object");
         var x = 1
         x.should.be.equal(1)
         
