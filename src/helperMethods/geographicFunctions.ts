@@ -63,3 +63,8 @@ export function measureDistanceBetweenTwoPoints(lat1:number,lon1:number,lat2:num
 
     return R * c;
 }
+
+
+export function buildBasicGeoJSONFromLatLong(latitude:number,longitude:number) : geoJSON {
+    return {"type":"point","coordinates":[latitude,longitude],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}
+}

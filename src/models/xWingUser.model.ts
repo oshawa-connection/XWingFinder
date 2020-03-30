@@ -18,7 +18,8 @@ import { Table,
      Length,
      BelongsToMany,
      IsEmail,
-     BeforeCreate} from 'sequelize-typescript';
+     BeforeCreate,
+     Validate} from 'sequelize-typescript';
 import {DataType} from 'sequelize-typescript';
 import { Sequelize, GEOMETRY } from 'sequelize/types';
 import { modelInterface, geoJSON } from '../../types/types'
@@ -57,7 +58,7 @@ export class xWingUser extends Model<xWingUser> {
     static validPassword(argPassword : string, instance: xWingUser) {
        return bcrypt.compareSync(argPassword,instance.password);
     }
-
+    
     @BeforeCreate
     static scrambleLocation(instance: xWingUser) {
         if (instance.location.coordinates.length !== 2 || instance.location.type !== "point") throw Error("Coordinates don't look to be points.")
@@ -128,4 +129,6 @@ export class xWingUser extends Model<xWingUser> {
     @Column
     updatedAt?: Date;
 
+
+    
 }

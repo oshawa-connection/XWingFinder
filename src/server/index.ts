@@ -1,7 +1,7 @@
 import express from "express"
 import { Request, Response, NextFunction } from "express";
 import { sequelizeFactory } from "./database";
-import { usersRouter } from "../routes/users.router"
+import { xWingUserRouter } from "../routes/xWingUser.router"
 
 
 export const sequelize = sequelizeFactory("development");
@@ -36,7 +36,7 @@ server.get("/",async (req:Request,res:Response) => {
   res.send("hello")
 })
 
-server.use("/users", usersRouter)
+server.use("/users", xWingUserRouter)
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);

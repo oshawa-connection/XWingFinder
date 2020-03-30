@@ -1,11 +1,12 @@
 import { IXWingUser, xWingUser } from '../src/models/xWingUser.model'
-import { sequelize } from '../src/server/database'
+import { sequelizeFactory } from "../src/server/database";
 import { geoJSON } from '../types/types'
-
+const sequelize = sequelizeFactory("development");
 
 
 
 (async () =>  {
+
     await sequelize.sync({force:true})
     
     var newUserArray: Array<IXWingUser> = [

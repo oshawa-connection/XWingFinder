@@ -7,15 +7,13 @@ export function sequelizeFactory(sequelizeEnvironment = "testing") {
   
   let config : any;
 
-  
-  config = require(__dirname + '/../../database.config.json')[sequelizeEnvironment];
-  
-  if (config === undefined) {
-      config = require(__dirname + '/../../../database.config.json')[sequelizeEnvironment];
-      if (config === undefined) {
-        throw "No database config file provided"
-      }
+  try {
+    config = require(__dirname + '/../../database.config.json')[sequelizeEnvironment];
   }
+  catch (err) {
+    config = require(__dirname + '/../../../database.config.json')[sequelizeEnvironment];
+  }
+
 
   var db = <any>{};
 
