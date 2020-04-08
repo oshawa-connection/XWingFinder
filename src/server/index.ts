@@ -1,4 +1,5 @@
 import express from "express"
+const helmet = require('helmet');
 import { Request, Response, NextFunction } from "express";
 import { sequelizeFactory } from "./database";
 import { xWingUserRouter } from "../routes/xWingUser.router"
@@ -11,8 +12,11 @@ const spawn = require("child_process").spawn;
 const bodyParser = require('body-parser');
 const port = 3002;
 export const server = express();
+
 const hostname = "localhost"
 console.log(__dirname +"/../views/")
+
+server.use(helmet())
 server.use("/views",express.static(__dirname +"/../views/"));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());

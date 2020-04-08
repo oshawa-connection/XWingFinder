@@ -37,7 +37,9 @@ xWingUserRouter.get('/geoJson', (req:Request, res:Response) => {
   })
 })
 
-xWingUserRouter.post('/newUser',(req:Request,res:Response) => {
+
+// TODO: Rewrite as async 
+xWingUserRouter.post('/newUser', (req:Request,res:Response) => {
   let newUserData : IXWingUser = {
     userName:req.body.userName,
     password:req.body.password,
@@ -46,15 +48,21 @@ xWingUserRouter.post('/newUser',(req:Request,res:Response) => {
 
   }
 
-  let newUser = new xWingUser(newUserData)
+  let newUser = new xWingUser(newUserData);
   
   newUser.validate().then( (message:any) => {
     console.log('message')
-    res.status(200).send("hello dave");
+    xWingUser.create(newUserData).then(
+      () => {
+        res.status(200).send("Success");
+      }
+    )
+    
+    
   })
   .catch((error) => {
-    console.error(error)
-    res.status(501).send("You done messed it up");
+    console.error(error) //error can be an array.
+    res.status(501).send("Invalid new user");
   })
 
   
