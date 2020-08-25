@@ -8,8 +8,8 @@ export function scramblePoints(inputGeoJson:geoJSON) : FixedLengthArray<[number,
     if (coordinates.length !== 2) throw Error("Coordinates don't look to be points.")
     
     let r = Math.floor(Math.random() * 50 + 50) / 111300;
-    let u = Math.random()
-    let w = r * Math.sqrt(u)
+    let randomAngle = Math.random()
+    let w = r * Math.sqrt(randomAngle)
     let t = 2 * Math.PI * Math.random()
     let x = w * Math.cos(t);
     let y = w * Math.sin(t);
